@@ -1,0 +1,277 @@
+/**
+ * Default Body Class Styles
+ */
+
+ :root
+ {
+     --v40: 5px;
+     --v41: 10rem;
+ }
+
+.c37 {}
+.c38 {}
+.c39 {}
+.c3a {}
+.c3b {}
+.c3c {}
+.c3d {}
+.c3e {}
+.c3f {}
+.c3g {}
+.cp{}
+.cq {}
+.cr[a42] {}
+.cr.cs {}
+.ct {}
+.ct.cu {}
+.cv {}
+.cv.cu {}
+.cw {}
+.cx .cy{}
+.cz .cy{}
+.c10 {}
+.c11 {}
+.c12 {}
+.c3d.c13[a43="test"]{}
+.c14.c13{}
+.c15.c13{}
+.c16.c13{}
+.c17.c13{}
+.c18.c13{}
+.c19.c13{}
+.c1a.c13{}
+
+/**
+ * Default Post Styles
+ */
+
+.c1b {}
+.c1c {}
+.c13 {}
+.c3e {}
+.c1d {}
+.c1e {}
+.c1f {}
+.c1g {}
+.c1h {}
+.c1i {}
+.c1j {}
+
+.c1k {}
+.c1l {}
+.c1m {}
+.c1n {}
+.c1o {}
+.c1p {}
+.c1q {}
+.c1r {
+    height: var(--v41);
+}
+
+/**
+ * Default Menu Styles
+ */
+
+#i3q .c1s{} /*container class*/
+#i3q .c1s ul {} /*container class first unordered list*/
+#i3q .c1s ul ul {} /*nordered list within an unordered list*/
+#i3q .c1s li {} /*each navigation item*/
+#i3q .c1s li a {} /*each navigation item anchor*/
+#i3q .c1s li ul {} /*unordered list if there is drop down items*/
+#i3q .c1s li li {} /*each drop down navigation item*/
+#i3q .c1s li li a {} /*each drap down navigation item anchor*/
+
+.c1t{} /*Class for Current Page*/
+.c1u{} /*Class for Current Category*/
+.c1v{} /*Class for any other current Menu Item*/
+.c1w{} /*Class for a Category*/
+.c1x{} /*Class for Pages*/
+.c1y{} /*Class for any custom item that you added*/
+.c1z{} /*Class for the Home Link*/
+
+/**
+ * Default WISIWYG Editor Styles
+ */
+
+.c20 img {}
+.c21, img.c21 { float: left; margin-right: 5px;}
+.c22, img.c22 { float: right; margin-left: 5px; }
+.c23, img.c23 { display: block; margin-left: auto; margin-right: auto; }
+.c24, img.c24 {}
+
+.c25 {}
+.c25 img {}
+.c25 p.c26 {}
+
+.c27 {}
+
+blockquote.c28 {}
+blockquote.c29 {}
+
+.c2a dl {}
+.c2a dt {}
+.c2a dd {}
+.c2a dl a {}
+.c2a dl img {}
+.c2b {}
+
+.c2c {}
+.c2d {}
+.c2e {}
+.c2f {}
+
+/**
+ * Default WordPress Widget Styles
+ */
+
+.c2g {}
+
+#i3r {}
+.c2h {}
+.c2i {}
+
+.c2j {}
+.c2j ul {}
+.c2j ul li {}
+.c2j ul li a {}
+
+.c2k {}
+.c2k ul {}
+.c2k ul li {}
+.c2k ul li a {}
+
+.c2l {}
+.c2l ul {}
+.c2l ul li {} 
+.c2l ul li a {}
+.c2l select {}
+.c2l option {}
+
+.c2m {}
+.c2m ul {}
+.c2m ul li {}
+.c2m ul li a {}
+
+.c2k {}
+.c2k li:after {}
+.c2k li:before {}
+.c2n {}
+.c2n a {}
+.c2n a:after {}
+.c2n a:before {}
+
+.c2o {}
+#i3s {}
+#i3s th {}
+#i3s td {}
+#wp-calendar tr td {}
+#wp-calendar caption {}
+#wp-calendar a {}
+#wp-calendar #i3u {}
+#wp-calendar #i3v {}
+#wp-calendar #i3w {}
+#wp-calendar #i3w a {}
+#wp-calendar #i3v a {}
+
+.c2p {}
+.c2p ul {}
+.c2p ul li {} 
+.c2p ul ul.c2q {}
+.c2p a {}
+.c2p select{}
+.c2p select#i3x {}
+.c2p select.c2r {}
+.c2p option {}
+.c2p .c2s {}
+.c2p .c2t {}
+.c2p .c2u {}
+.c2p .c2v {}
+
+.c2w {}
+#i3y {}
+#i3y li {}
+#i3y li a {}
+.c2x {}
+
+.c2y {}
+.c2y ul {}
+.c2y ul li {}
+.c2y ul li a {}
+
+.c2z {}
+.c30 {}
+.c2z p {}
+
+/**
+ * Default Comment Form Styles
+ */
+
+/* Comment Output*/
+
+.c31 .c32 {}
+.c31 .c32 a {}
+
+.c31 .c33 {}
+.c31 .c34 {}
+.c31 .c35 {}
+.c31 .c36 {}
+.c31 .c0 {}
+.c31 .c1 {}
+.c31 li ul.c2q .c33 {}
+.c31 li ul.c2q .c34 {}
+.c31 li ul.c2q .c35 {}
+
+.c31 .c2 {}
+.c31 .c2 cite.c3 {}
+.c31 .c2 span.c4 {}
+.c31 .c2 img.c5 {}
+.c31 .c2 img.c6 {}
+.c31 .c2 cite.c3 a.c7 {}
+
+.c31 .c8 {} 
+.c31 .c8 a {}
+.c31 .c9 {}
+.c31 .c9 a {}
+
+.c31 .cy {}
+.c31 .ca {}
+.c31 .c2q {}
+.c31 .cb {}
+.c31 .cc {}
+.c31 .cd {}
+.c31 .ce {}
+
+.c31 {}
+.c31 li {}
+.c31 li p {}
+.c31 li ul {}
+.c31 li ul.c2q li {}
+.c31 li ul.c2q li.c33 {}
+.c31 li ul.c2q li.cf {}
+.c31 li ul.c2q li.ca {}
+.c31 li ul.c2q li.cg {}
+.c31 li ul.c2q li.cc {}
+.c31 li ul.c2q li.ce {}
+
+#cancel-comment-reply {}
+#cancel-comment-reply a {}
+
+/* Comment Form */
+
+#i3h { } 
+#reply-title { } 
+#cancel-comment-reply-link { }
+#i3k { } 
+#i3l { } 
+#i3m { } 
+#i3n { } 
+#i3o  {}
+#i3p {}
+.ch { } 
+.ci { }
+.cj { }
+.ck { } 
+.cl { }
+.cm { } 
+.cn { } 
+.co { }

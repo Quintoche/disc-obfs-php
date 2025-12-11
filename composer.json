@@ -1,0 +1,19 @@
+{
+    "name": "discite/disc-obfs-php",
+    "description": "Php library to obfuscate css and js files",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DisciteObfuscator\\": "src/DisciteObfuscator/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Romain Quintainer",
+            "email": "quintainer@icloud.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

@@ -1,0 +1,48 @@
+
+---
+
+# 📄 `bin/obfuscate`
+
+```php
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use DisciteObfuscator\DisciteObfuscator;
+
+if ($argc < 3) {
+    echo "Usage: obfuscate input.css output.css map.json/map.ini\n";
+    exit(1);
+}
+
+$input = $argv[1];
+$output = $argv[2];
+$mapFile = $argv[3];
+
+$css = file_get_contents($input);
+
+$obf = new DisciteObfuscator();
+$result = $obf->obfuscate($css);
+
+$obf->saveObfuscatedCssToFile($result, $output);
+
+if(str_ends_with($mapFile, '.json'))
+{
+    $obf->createMapJsonFiles(dirname($mapFile), basename($mapFile, '.json'));
+} 
+elseif (str_ends_with($mapFile, '.ini'))
+{
+    $obf->createMapIniFiles(dirname($mapFile), basename($mapFile, '.ini'));
+}
+else
+{
+    echo "Unsupported map file format. Use .json or .ini\n";
+    exit(1);
+}
+
+
+echo "Discite StyleObfuscator done:\n";
+echo "- ".(count($obf->maps()->classes()) + count($obf->maps()->ids()) + count($obf->maps()->vars()))." identifiers replaced\n";
+
+?>
