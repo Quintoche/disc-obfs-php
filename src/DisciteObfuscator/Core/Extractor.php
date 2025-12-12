@@ -157,7 +157,14 @@ class Extractor
     public static function extractAttributesFromCSS(string $css) : array
     {
         preg_match_all('/\[\s*([a-zA-Z_][a-zA-Z0-9_-]*)\s*(?:[~|^$*]?=\s*[\'"][^\'"]*[\'"])?\s*\]/', $css, $matches);
-        $attributes = array_unique($matches[1]);
+        $rawAttributes = array_unique($matches[1]);
+
+        $attributes = array_map(function($attr) {
+            if (preg_match('/^data-([a-zA-Z0-9_-]+)$/', $attr, $dm)) {
+                return $dm[1];
+            }
+            return $attr;
+        }, $rawAttributes);
 
         return self::filterExclusions($attributes, 'attr');
     }
@@ -184,6 +191,10 @@ class Extractor
         // dataset.xxx
         preg_match_all('/dataset\.([a-zA-Z_][a-zA-Z0-9_-]*)\b/', $js, $m);
         $attrs = array_merge($attrs, $m[1]);
+
+        // WIP :
+        // need to improve dataset.xxx when xxx contains others chars like hyphen (-) that are not valid in JS variable names
+        // and automatically convert into dataset.xxx.yyy
 
         // querySelector("[xxx]")
         preg_match_all('/querySelector(?:All)?\(\s*[\'"]\[([a-zA-Z_][a-zA-Z0-9_-]*)\][\'"]\s*\)/', $js, $m);

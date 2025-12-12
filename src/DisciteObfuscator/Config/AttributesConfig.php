@@ -24,7 +24,15 @@ class AttributesConfig
      * @var array
      */
     public static array $excludedAttributes = [
-        // Add more attributes to exclude from obfuscation as needed
+        'src',
+        'href',
+        'alt',
+        'title',
+        'rel',
+        'integrity',
+        'crossorigin',
+        'referrerpolicy',
+        'type',
     ];
 }
 
