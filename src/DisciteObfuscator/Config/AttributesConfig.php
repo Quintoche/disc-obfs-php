@@ -32,6 +32,8 @@ class AttributesConfig
         'integrity',
         'crossorigin',
         'referrerpolicy',
+        'colspan',
+        'rowspan',
         'type',
     ];
 }

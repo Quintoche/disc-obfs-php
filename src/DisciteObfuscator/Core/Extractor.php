@@ -64,7 +64,7 @@ class Extractor
      */
     public static function extractClassesFromCSS(string $css) : array
     {
-        preg_match_all('/\.([a-zA-Z0-9_\p{Pd}]+)/u', $css, $matches);
+        preg_match_all('/\.(?!\d)([a-zA-Z0-9_\p{Pd}]+)/u', $css, $matches);
         $classes = array_unique($matches[1]);
 
         return self::filterExclusions($classes, 'class');
@@ -157,14 +157,7 @@ class Extractor
     public static function extractAttributesFromCSS(string $css) : array
     {
         preg_match_all('/\[\s*([a-zA-Z_][a-zA-Z0-9_-]*)\s*(?:[~|^$*]?=\s*[\'"][^\'"]*[\'"])?\s*\]/', $css, $matches);
-        $rawAttributes = array_unique($matches[1]);
-
-        $attributes = array_map(function($attr) {
-            if (preg_match('/^data-([a-zA-Z0-9_-]+)$/', $attr, $dm)) {
-                return $dm[1];
-            }
-            return $attr;
-        }, $rawAttributes);
+        $attributes = array_unique($matches[1]);
 
         return self::filterExclusions($attributes, 'attr');
     }

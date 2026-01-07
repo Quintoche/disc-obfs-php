@@ -38,33 +38,25 @@ class Replacer
     {
         if (empty($map)) return $css;
 
-        uksort($map, fn($a,$b) => strlen($b) <=> strlen($a));
+        return preg_replace_callback(
+            '/#([a-zA-Z0-9_-]+)\b/u',
+            function ($matches) use ($map) {
+                $id = $matches[1];
 
-        foreach ($map as $from => $to)
-        {
-            $from = preg_quote($from, '/');
-            $css = preg_replace_callback(
-                '/#([a-zA-Z0-9_-]+)\b/u',
-                function($matches) use ($from, $to) {
-                    $id = $matches[1];
-
-                    // If it’s a hex color, skip
-                    if (preg_match('/^[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/', $id)) {
-                        return '#' . $id;
-                    }
-
-                    // If it matches the map key, replace it
-                    if ($id === $from) {
-                        return '#' . $to;
-                    }
-
+                // Skip hex colors (#fff, #ffffff)
+                if (preg_match('/^[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/', $id)) {
                     return '#' . $id;
-                },
-                $css
-            );
-        }
+                }
 
-        return $css;
+                // Replace if found in map
+                if (isset($map[$id])) {
+                    return '#' . $map[$id];
+                }
+
+                return '#' . $id;
+            },
+            $css
+        );
     }
 
     /**

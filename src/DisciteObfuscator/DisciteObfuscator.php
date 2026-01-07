@@ -9,15 +9,48 @@ use DisciteObfuscator\Core\Saver;
 
 class DisciteObfuscator
 {
+    /**
+     * The style map that holds mappings for classes, IDs, variables, and attributes.
+     * 
+     * @var DisciteMap $styleMap
+     */
     private DisciteMap $styleMap;
 
+    /**
+     * Handles hashing operations for obfuscation.
+     * 
+     * @var Hasher $hasher
+     */
     private Hasher $hasher;
 
+    /**
+     * Handles extraction of classes, IDs, variables, and attributes from code.
+     * 
+     * @var Extractor $extractor
+     */
     private Extractor $extractor;
 
+    /**
+     * Handles replacement operations for obfuscation.
+     * 
+     * @var Replacer $replacer
+     */
     private Replacer $replacer;
 
+    /**
+     * Handles saving operations for obfuscated files and maps.
+     * 
+     * @var Saver $saver
+     */
     private Saver $saver;
+
+    /**
+     * Enable or disable development mode.
+     * When enabled, obfuscated names will be replaced with original names for easier debugging.
+     * 
+     * @var bool $devMode
+     */
+    public bool $devMode = false;
 
     public function __construct()
     {
@@ -89,24 +122,36 @@ class DisciteObfuscator
 
 
         // Build maps
-        foreach ($classes as $c) {
+        foreach($classes as $c)
+        {
+            if (array_key_exists($c, $this->styleMap->classes())) continue;
+            
             $obf = $this->hasher->formatClass();
-            $this->styleMap->addToClassesMap($c, $obf);
+            $this->styleMap->addToClassesMap($c, ($this->devMode ? $c : $obf));
         }
 
-        foreach ($ids as $i) {
+        foreach($ids as $i)
+        {
+            if (array_key_exists($i, $this->styleMap->ids())) continue;
+
             $obf = $this->hasher->formatId();
-            $this->styleMap->addToIdsMap($i, $obf);
+            $this->styleMap->addToIdsMap($i, ($this->devMode ? $i : $obf));
         }
 
-        foreach ($vars as $v) {
+        foreach($vars as $v)
+        {
+            if (array_key_exists($v, $this->styleMap->vars())) continue;
+
             $obf = $this->hasher->formatVar();
-            $this->styleMap->addToVarsMap($v, $obf);
+            $this->styleMap->addToVarsMap($v, ($this->devMode ? $v : $obf));
         }
 
-        foreach ($attr as $a) {
+        foreach($attr as $a)
+        {
+            if (array_key_exists($a, $this->styleMap->attributes())) continue;
+            
             $obf = $this->hasher->formatAttribute();
-            $this->styleMap->addToAttributesMap($a, $obf);
+            $this->styleMap->addToAttributesMap($a, ($this->devMode ? $a : $obf));
         }
 
         // Replace
@@ -155,6 +200,16 @@ class DisciteObfuscator
     }
 
     /**
+     * Create map arrays.
+     *
+     * @return array The map arrays.
+     */
+    public function createMapArrays(): array
+    {
+        return $this->styleMap->all();
+    }
+
+    /**
      * Load map from JSON file.
      *
      * @param string $filepath The path to the JSON file.
@@ -174,6 +229,10 @@ class DisciteObfuscator
 
         if (isset($map['vars'])) {
             $this->styleMap->setVarsMap($map['vars']);
+        }
+
+        if (isset($map['attributes'])) {
+            $this->styleMap->setAttributesMap($map['attributes']);
         }
     }
 
@@ -212,6 +271,21 @@ class DisciteObfuscator
     public function saveObfuscatedCssToFile(string $css, string $filepath): void
     {
         $this->saver->cssToFile($css, $filepath);
+    }
+
+    /**
+     * Switch the devMode type.
+     * 
+     * DevMode will not obfuscate files you're providing. However, Obfuscator will still give you a map.
+     * 
+     * @return bool
+     * 
+     */
+    public function devMode() : bool
+    {
+        $this->devMode = ($this->devMode == true) ? false : true;
+        
+        return $this->devMode;
     }
 }
 
