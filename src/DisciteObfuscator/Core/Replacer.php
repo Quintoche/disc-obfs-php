@@ -120,9 +120,9 @@ class Replacer
 
             $fromQ = preg_quote($from, '/');
 
-            // classList.add/remove/toggle("class")
+            // classList.add/remove/toggle/contains("class")
             $js = preg_replace(
-                '/classList\.(add|remove|toggle)\(\s*[\'"]' . $fromQ . '[\'"]\s*\)/u',
+                '/classList\.(add|remove|toggle|contains)\(\s*[\'"]' . $fromQ . '[\'"]\s*\)/u',
                 'classList.$1("'.$to.'")',
                 $js
             );
@@ -260,6 +260,13 @@ class Replacer
                 $js
             );
 
+            // hasAttribute("data-x")
+            $js = preg_replace(
+                '/hasAttribute\(\s*[\'"]' . $fromQ . '[\'"]\s*\)/u',
+                'hasAttribute("'.$to.'")',
+                $js
+            );
+
             // setAttribute("data-x", ...)
             $js = preg_replace(
                 '/setAttribute\(\s*[\'"]' . $fromQ . '[\'"]\s*,/u',
@@ -278,6 +285,20 @@ class Replacer
             $js = preg_replace(
                 '/querySelector\(\s*[\'"]\[' . $fromQ . '\][\'"]\s*\)/u',
                 'querySelector("['.$to.']")',
+                $js
+            );
+
+            // querySelectorAll("[attr]")
+            $js = preg_replace(
+                '/querySelectorAll\(\s*[\'"]\[' . $fromQ . '\][\'"]\s*\)/u',
+                'querySelectorAll("['.$to.']")',
+                $js
+            );
+
+            // closest("[attr]")
+            $js = preg_replace(
+                '/closest\(\s*[\'"]\[' . $fromQ . '\][\'"]\s*\)/u',
+                'closest("['.$to.']")',
                 $js
             );
         }

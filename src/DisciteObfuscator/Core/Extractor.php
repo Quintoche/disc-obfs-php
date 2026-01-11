@@ -82,7 +82,7 @@ class Extractor
         $classes = [];
 
         // classList.add/remove/toggle("xxx")
-        preg_match_all('/classList\.(?:add|remove|toggle)\(\s*[\'"]([a-zA-Z_][a-zA-Z0-9_-]*)[\'"]\s*\)/', $js, $m);
+        preg_match_all('/classList\.(?:add|remove|toggle|contains)\(\s*[\'"]([a-zA-Z_][a-zA-Z0-9_-]*)[\'"]\s*\)/', $js, $m);
         $classes = array_merge($classes, $m[1]);
 
         // element.className = "xxx"
@@ -114,7 +114,7 @@ class Extractor
      */
     public static function extractVarsFromCSS(string $css) : array
     {
-        preg_match_all('/--[a-zA-Z0-9_-]+(?=\s*:)/u', $css, $m);
+        preg_match_all('/--[a-zA-Z0-9_-]+(?=\s*:|(?<!var\()\s*\))/u', $css, $m);
         $vars = array_unique($m[0]);
 
         return self::filterExclusions($vars, 'var');
@@ -181,6 +181,14 @@ class Extractor
         preg_match_all('/setAttribute\(\s*[\'"]([a-zA-Z_][a-zA-Z0-9_-]*)[\'"]\s*,/u', $js, $m);
         $attrs = array_merge($attrs, $m[1]);
 
+        // hasAttribute("xxx")
+        preg_match_all('/hasAttribute\(\s*[\'"]([a-zA-Z_][a-zA-Z0-9_-]*)[\'"]\s*\)/u', $js, $m);
+        $attrs = array_merge($attrs, $m[1]);
+
+        // closest("xxx")
+        preg_match_all('/closest\(\s*[\'"]\[([a-zA-Z_][a-zA-Z0-9_-]*)\s*(?:[~|^$*]?=\s*[\'"][^\'"]*[\'"])?\][\'"]\s*\)/', $js, $m);
+        $attrs = array_merge($attrs, $m[1]);
+
         // dataset.xxx
         preg_match_all('/dataset\.([a-zA-Z_][a-zA-Z0-9_-]*)\b/', $js, $m);
         $attrs = array_merge($attrs, $m[1]);
@@ -190,7 +198,7 @@ class Extractor
         // and automatically convert into dataset.xxx.yyy
 
         // querySelector("[xxx]")
-        preg_match_all('/querySelector(?:All)?\(\s*[\'"]\[([a-zA-Z_][a-zA-Z0-9_-]*)\][\'"]\s*\)/', $js, $m);
+        preg_match_all('/querySelector(?:All)?\(\s*[\'"]\[([a-zA-Z_][a-zA-Z0-9_-]*)\s*(?:[~|^$*]?=\s*[\'"][^\'"]*[\'"])?\][\'"]\s*\)/', $js, $m);
         $attrs = array_merge($attrs, $m[1]);
 
         // jQuery style $("[xxx]")
